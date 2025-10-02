@@ -58,8 +58,7 @@ python setup.py install --prefix=$AMBERHOME
 In order to automatically run the ParmEd tests, execute the following:
 
 ```sh
-cd test
-py.test .
+just test
 ```
 
 ## Examples

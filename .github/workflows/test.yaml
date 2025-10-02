@@ -35,7 +35,7 @@ jobs:
       shell: bash -l {0}
       run: conda install "ambertools >=20.15" -c conda-forge -yq
 
-    - name: Install and test
+    - name: Install and tests
       shell: bash -lx {0}
       run: |
         env
@@ -46,5 +46,5 @@ jobs:
       if: endsWith(github.ref, '/master')
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
-        directory: test/
+        directory: tests/
         fail_ci_if_error: true

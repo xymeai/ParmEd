@@ -30,7 +30,7 @@ ext-modules = [
 
 [tool.pytest.ini_options]
 pythonpath = [
-    "src"
+    "src", "tests"
 ]
 
 [dependency-groups]

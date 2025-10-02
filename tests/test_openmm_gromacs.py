@@ -45,8 +45,8 @@ def zero_ep_frc(frc, struct):
         if isinstance(atom, ExtraPoint):
             frc[i] = vec0
 
-@unittest.skipUnless(has_openmm, "Cannot test without OpenMM")
-@unittest.skipUnless(HAS_GROMACS, "Cannot test without GROMACS")
+@unittest.skipUnless(has_openmm, "Cannot tests without OpenMM")
+@unittest.skipUnless(HAS_GROMACS, "Cannot tests without GROMACS")
 class TestGromacsTop(TestCaseRelative, QuantityTestCase):
     """ Test ParmEd's energies vs. Gromacs energies as run by Lee-Ping """
 

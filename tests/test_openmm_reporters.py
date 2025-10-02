@@ -14,7 +14,7 @@ import sys
 import unittest
 from utils import mm, app, has_openmm, CPU, FileIOTestCase, HAS_GROMACS
 
-@unittest.skipUnless(has_openmm, "Cannot test without OpenMM")
+@unittest.skipUnless(has_openmm, "Cannot tests without OpenMM")
 class TestStateDataReporter(FileIOTestCase):
 
     def setUp(self):
@@ -145,7 +145,7 @@ class TestStateDataReporter(FileIOTestCase):
         self.assertTrue('Kinetic Energy' in text)
         self.assertTrue('Temperature' in text)
 
-@unittest.skipUnless(has_openmm, "Cannot test without OpenMM")
+@unittest.skipUnless(has_openmm, "Cannot tests without OpenMM")
 class TestTrajRestartReporter(FileIOTestCase):
 
     def setUp(self):
@@ -227,7 +227,7 @@ class TestTrajRestartReporter(FileIOTestCase):
             ntraj[i].close() # still need the 2nd
         for traj in atraj:
             traj.close()
-        # Now test the NetCDF restart files
+        # Now tests the NetCDF restart files
         fn = self.get_fn('restart.ncrst.%d', written=True)
         for i, j in enumerate(range(10, 501, 10)):
             ncrst = NetCDFRestart.open_old(fn % j)
@@ -235,7 +235,7 @@ class TestTrajRestartReporter(FileIOTestCase):
             self.assertEqual(ncrst.velocities.shape, (1, 25, 3))
             np.testing.assert_allclose(ncrst.coordinates[0], ntraj[1].coordinates[i])
             np.testing.assert_allclose(ncrst.velocities[0], ntraj[1].velocities[i], rtol=1e-6)
-        # Now test the ASCII restart file
+        # Now tests the ASCII restart file
         f = AmberAsciiRestart(self.get_fn('restart.rst7', written=True), 'r')
         # Compare to ncrst and make sure it's the same data
         np.testing.assert_allclose(ncrst.coordinates, f.coordinates, atol=1e-3)
@@ -246,7 +246,7 @@ class TestTrajRestartReporter(FileIOTestCase):
         rep.report(sim, frame=10)
         rep.finalize()
 
-    @unittest.skipUnless(HAS_GROMACS, 'Cannot test without GROMACS')
+    @unittest.skipUnless(HAS_GROMACS, 'Cannot tests without GROMACS')
     def test_reporters_pbc(self):
         """ Test NetCDF and ASCII restart and trajectory reporters (w/ PBC) """
         systemsolv = load_file(self.get_fn('ildn.solv.top'), xyz=self.get_fn('ildn.solv.gro'))

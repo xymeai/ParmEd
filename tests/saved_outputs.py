@@ -1,7 +1,7 @@
 
 """
 This module simply contains a repository of saved outputs so it doesn't flood
-the actual test scripts
+the actual tests scripts
 """
 
 PRINT_DETAILS = """

@@ -11,7 +11,7 @@ try:
 except ImportError:
     init = pose_from_sequence = None
 
-@unittest.skipIf(init is None, "Cannot test load_rosetta module without PyRosetta.")
+@unittest.skipIf(init is None, "Cannot tests load_rosetta module without PyRosetta.")
 class TestRosetta(unittest.TestCase):
     """ Tests loading of a Rosetta pose object """
 

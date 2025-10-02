@@ -37,7 +37,7 @@ class TestStructureAPI(unittest.TestCase):
         s.add_atom(Atom(atomic_number=6), 'GLY', 3, 'B')
         s.add_atom(Atom(atomic_number=6), 'GLY', 3, 'B')
 
-    @unittest.skipUnless(has_openmm, 'Cannot test without OpenMM')
+    @unittest.skipUnless(has_openmm, 'Cannot tests without OpenMM')
     def test_gb_assignment(self):
         """ Tests GB parameter assignment """
         # GBneck1
@@ -248,7 +248,7 @@ class TestStructureAPI(unittest.TestCase):
         self.assertEqual(box[1][4], 91)
         self.assertEqual(box[1][5], 91)
         self.assertRaises(IndexError, lambda: s.get_box(3))
-        # Now test box vectors
+        # Now tests box vectors
         s.box_vectors = [[1, 0, 0], [0, 1, 0], [0, 0, 1]] * u.nanometers
         np.testing.assert_equal(s.box, [10, 10, 10, 90, 90, 90])
 
@@ -480,7 +480,7 @@ class TestStructureAPI(unittest.TestCase):
         # Make sure we ran all checks
         self.assertEqual(set(criteria_satisfied), {1})
 
-    @unittest.skipUnless(has_openmm, 'Cannot test without OpenMM')
+    @unittest.skipUnless(has_openmm, 'Cannot tests without OpenMM')
     def test_screen_assignment(self):
         """ Testing screen parameter assignment """
         self.assertEqual(structure._gb_rad_screen(Atom(atomic_number=9), app.GBn2)[1], 0.88)
@@ -488,7 +488,7 @@ class TestStructureAPI(unittest.TestCase):
         self.assertEqual(structure._gb_rad_screen(Atom(atomic_number=16), app.GBn2)[1], 0.96)
         self.assertEqual(structure._gb_rad_screen(Atom(atomic_number=2), app.GBn2)[1], 0.8)
 
-    @unittest.skipUnless(has_openmm, 'Cannot test without OpenMM')
+    @unittest.skipUnless(has_openmm, 'Cannot tests without OpenMM')
     def test_omm_topology(self):
         """ Tests the creation of the OpenMM Topology instance """
         # Make sure an empty structure returns an empty topology
@@ -1258,7 +1258,7 @@ class TestStructureSave(FileIOTestCase):
         parm.save(self.get_fn('test4.parm7', written=True))
         self.assertIsInstance(pmd.load_file(self.get_fn('test4.parm7', written=True)), pmd.amber.AmoebaParm)
 
-    @unittest.skipUnless(HAS_GROMACS, 'Cannot test without GROMACS')
+    @unittest.skipUnless(HAS_GROMACS, 'Cannot tests without GROMACS')
     def test_save_amber_parm2(self):
         """ Test saving AmberParm with custom exceptions """
         parm = pmd.load_file(os.path.join(get_fn('04.Ala'), 'topol.top'),
@@ -1462,7 +1462,7 @@ class TestStructureSave(FileIOTestCase):
 
     def test_save_pqr(self):
         """ Test saving various Structure instances as PQR files """
-        f1 = self.get_fn('test', written=True)
+        f1 = self.get_fn('tests', written=True)
         f2 = self.get_fn('test.pqr', written=True)
         f3 = self.get_fn('test2.pqr', written=True)
         self.sys1.save(f1, format='pqr')

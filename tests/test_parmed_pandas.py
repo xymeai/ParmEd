@@ -15,7 +15,7 @@ try:
 except ImportError:
     pd = None
 
-@unittest.skipIf(pd is None, "Cannot test without pandas")
+@unittest.skipIf(pd is None, "Cannot tests without pandas")
 class TestStructureDataFrame(unittest.TestCase):
     """ Tests the conversion of parmed.Structure to a pd.DataFrame """
 

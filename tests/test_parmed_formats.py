@@ -39,7 +39,7 @@ class TestFileLoader(FileIOTestCase):
     def test_load_blank_file(self):
         """ Makes sure that a blank file does not match any id_format """
         from parmed.formats.registry import PARSER_REGISTRY
-        fn = self.get_fn('test', written=True)
+        fn = self.get_fn('tests', written=True)
         with open(fn, 'w'):
             pass
         for name, cls in PARSER_REGISTRY.items():
@@ -268,9 +268,9 @@ class TestFileLoader(FileIOTestCase):
                                 hasbox=True)
         self.assertIsInstance(crd, amber.AmberParm)
 
-    @unittest.skipUnless(has_rdkit and is_linux, "Only test load_rdkit module on Linux")
+    @unittest.skipUnless(has_rdkit and is_linux, "Only tests load_rdkit module on Linux")
     def test_load_sdf(self):
-        """ test load sdf format via rdkit """
+        """ tests load sdf format via rdkit """
         sdffile = get_fn('test.sdf')
         # structure = False
         parmlist = pmd.load_file(sdffile)
@@ -766,7 +766,7 @@ class TestPDBStructure(FileIOTestCase):
         pdb = formats.PDBFile.parse(fn)
         self.assertEqual(len(pdb.atoms), 1)
         np.testing.assert_equal(pdb.atoms[0].anisou, [1, 2, 3, 4, 5, 6])
-        # Now test error handling
+        # Now tests error handling
         # Bad atom number
         with open(fn, 'w') as f:
             f.write(self.ATOMLINE % (1, 'CA', '', 'ALA', 'A', 1, '',
@@ -1216,13 +1216,13 @@ REMARK 290   SMTRY3   4  0.000000  0.000000 -1.000000        0.00000
         self.assertEqual(link2.symmetry_op1, '1555')
         self.assertEqual(link2.symmetry_op2, '1555')
 
-        # Now test writing
+        # Now tests writing
         written_file = self.get_fn('link.pdb', written=True)
         parm.write_pdb(written_file, write_links=True, renumber=False)
         parm2 = pmd.load_file(written_file)
         self.assertEqual(len(parm2.links), 47)
 
-    # Private helper test functions
+    # Private helper tests functions
     def _compareInputOutputPDBs(self, pdbfile, pdbfile2, reordered=False,
                                 altloc_option='all'):
         # Now go through all atoms and compare their attributes
@@ -2163,7 +2163,7 @@ class TestMol2File(FileIOTestCase):
         for b1, b2 in zip(mol2.bonds, mol2_2.bonds):
             self.assertEqual(b1.order, b2.order)
 
-    @unittest.skipUnless(HAS_GROMACS, 'Cannot test without gromacs')
+    @unittest.skipUnless(HAS_GROMACS, 'Cannot tests without gromacs')
     def test_mol3_disulfide(self):
         """ Tests writing mol3 file w/ disulfide (for RESIDUECONNECT) """
         top = formats.load_file(get_fn('1aki.ff99sbildn.top'))['!:SOL']

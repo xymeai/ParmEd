@@ -69,7 +69,7 @@ class TestChemistryResidue(unittest.TestCase):
         self.assertTrue(residue.AminoAcidResidue.has('E'))
         self.assertTrue(residue.AminoAcidResidue.has('GLU'))
         self.assertTrue(residue.AminoAcidResidue.has(residue.GLU))
-        # Now test some that should be False
+        # Now tests some that should be False
         self.assertFalse(residue.AminoAcidResidue.has(residue.A))
         self.assertFalse(residue.AminoAcidResidue.has('GUA'))
         self.assertFalse(residue.AminoAcidResidue.has('DG'))

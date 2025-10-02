@@ -1,5 +1,5 @@
 """
-Useful functions for the test cases
+Useful functions for the tests cases
 """
 import os
 from os.path import join
@@ -118,7 +118,7 @@ class FileIOTestCase(unittest.TestCase):
 
 def get_fn(filename):
     """
-    Gets the full path of the file name for a particular test file
+    Gets the full path of the file name for a particular tests file
 
     Parameters
     ----------
@@ -128,13 +128,13 @@ def get_fn(filename):
     Returns
     -------
     str
-        Name of the test file with the full path location
+        Name of the tests file with the full path location
     """
     return str(Path(__file__).parent / "files" / filename)
 
 def get_saved_fn(filename):
     """
-    Gets the full path of a file name of a saved test case that is used for
+    Gets the full path of a file name of a saved tests case that is used for
     comparison with a generated file
 
     Parameters
@@ -145,7 +145,7 @@ def get_saved_fn(filename):
     Returns
     -------
     str
-        Name of the test file with the full path location
+        Name of the tests file with the full path location
     """
     return str(Path(__file__).parent / "files" / "saved" / filename)
 
@@ -190,20 +190,12 @@ def diff_files(file1, file2, ignore_whitespace=True,
     if absolute_error is not None: absolute_error = float(absolute_error)
     if relative_error is not None: relative_error = float(relative_error)
     if isinstance(file1, str):
-        try:
-            f1 = open(file1, 'r')
-        except IOError:
-            print('Could not find %s' % file1)
-            return False
+        f1 = open(file1, 'r')
     else:
         f1 = file1
         file1 = str(file1)
     if isinstance(file2, str):
-        try:
-            f2 = open(file2, 'r')
-        except IOError:
-            print('Could not find %s' % file2)
-            return False
+        f2 = open(file2, 'r')
     else:
         f2 = file2
         file2 = str(file2)

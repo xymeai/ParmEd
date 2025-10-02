@@ -624,7 +624,7 @@ class TestNumpyUnits(utils.QuantityTestCase):
         self.assertIsInstance("", str)
         self.assertTrue(isinstance("", str))
         self.assertTrue(isinstance("t", str))
-        self.assertTrue(isinstance("test", str))
+        self.assertTrue(isinstance("tests", str))
         self.assertFalse(isinstance(3, str))
         self.assertFalse(isinstance(a, str))
 

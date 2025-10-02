@@ -11,12 +11,12 @@ try:
 except ImportError:
     has_rdkit = False
 
-@unittest.skipUnless(has_rdkit, "Only test load_rdkit module on Linux")
+@unittest.skipUnless(has_rdkit, "Only tests load_rdkit module on Linux")
 class TestRDKit(unittest.TestCase):
     """ Tests loading of an rdkit Mol object """
 
     def test_load_rdkit_mol(self):
-        """ test load rdkit from Mol """
+        """ tests load rdkit from Mol """
         from rdkit import Chem
         m1 = Chem.MolFromSmiles('C1=CC=CN=C1')
         parm = pmd.load_rdkit(m1)
@@ -24,7 +24,7 @@ class TestRDKit(unittest.TestCase):
         self.assertEqual(parm.residues[0].name, 'UNL')
 
     def test_load_smiles(self):
-        """ test load rdkit from smiles string """
+        """ tests load rdkit from smiles string """
         smiles = 'C1=CC=CN=C1'
 
         # coordinates = False
@@ -39,7 +39,7 @@ class TestRDKit(unittest.TestCase):
         self.assertFalse((parm.coordinates[0] == 0).all())
 
     def test_load_smiles_explicit_hydrogen(self):
-        """ test adding explict hydrogens from smiles string"""
+        """ tests adding explict hydrogens from smiles string"""
         smiles = "CC"
 
         num_atoms = 8 # CH3-CH3

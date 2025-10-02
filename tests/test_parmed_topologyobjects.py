@@ -21,7 +21,7 @@ import warnings
 
 class TestTopologyObjects(unittest.TestCase):
     """
-    This test set is responsible for testing the classes in
+    This tests set is responsible for testing the classes in
     parmed.topologyobjects
     """
 
@@ -802,7 +802,7 @@ class TestTopologyObjects(unittest.TestCase):
         self.assertIn(a1, a2.bond_partners) # Duplicated bond
         bond4.delete()
         self.assertNotIn(a1, a2.bond_partners)
-        # Now test measurements
+        # Now tests measurements
         self.assertIs(bond1.measure(), None)
         self.assertIs(bond1.umeasure(), None)
         self.assertIs(bond1.energy(), None)
@@ -813,7 +813,7 @@ class TestTopologyObjects(unittest.TestCase):
         a3.xx, a3.xy, a3.xz = 1.0, 2.0, 3.0
         self.assertEqual(bond2.measure(), math.sqrt(14))
         self.assertEqual(bond2.umeasure(), math.sqrt(14) * u.angstroms)
-        # Now test the bond types
+        # Now tests the bond types
         bond_types = TrackedList()
         bond_types.append(BondType(10.0, 1.0, bond_types))
         bond_types.append(BondType(12.0, 1.1, bond_types))
@@ -831,7 +831,7 @@ class TestTopologyObjects(unittest.TestCase):
         self.assertEqual(bond2.type.idx, 1)
         self.assertEqual(bond3.type.idx, 2)
         self.assertIs(bond1.type.list, bond_types)
-        # Now test energy calculations
+        # Now tests energy calculations
         ene = bond2.type.k*(bond2.measure() - bond2.type.req)**2
         self.assertAlmostEqual(bond2.energy(), ene)
         self.assertAlmostEqual(bond2.uenergy(), ene * u.kilocalories_per_mole)
@@ -904,7 +904,7 @@ class TestTopologyObjects(unittest.TestCase):
         ang3 = Angle(a3, a4, a2, angle_types[2])
         ang1.type = angle_types[0]
         ang2.type = angle_types[1]
-        # Now test energy
+        # Now tests energy
         self.assertAlmostEqual(ang1.energy(), ang1.type.k *
                                (ang1.type.theteq*DEG_TO_RAD - ang1.measure()*DEG_TO_RAD) ** 2)
         # Test angle as a container
@@ -1115,7 +1115,7 @@ class TestTopologyObjects(unittest.TestCase):
         # Now try DihedralTypeList.from_rbtorsion
         dtl = DihedralTypeList.from_rbtorsion(RBTorsionType(1, 2, 3, -4, -1, 0))
 
-        # Now test DihedralTypeList.__copy__
+        # Now tests DihedralTypeList.__copy__
         cp = copy(dihed_types[0])
         self.assertIsNot(cp, dihed_types[0])
         self.assertIs(cp.list, None)
@@ -1163,7 +1163,7 @@ class TestTopologyObjects(unittest.TestCase):
 
     #=============================================
 
-    @unittest.skipUnless(has_openmm, "Cannot test without OpenMM")
+    @unittest.skipUnless(has_openmm, "Cannot tests without OpenMM")
     def test_rb_torsion_type_conversion_openmm(self):
         """ Test energetics/forces of converted R-B torsion """
         s1 = Structure()
@@ -1320,7 +1320,7 @@ class TestTopologyObjects(unittest.TestCase):
         self.assertEqual(cp.idx, -1)
         self.assertEqual(cp.psi_k, imp_types[0].psi_k)
         self.assertEqual(cp.psi_eq, imp_types[0].psi_eq)
-        # Now test that same_atoms detects *not-same* improper atoms
+        # Now tests that same_atoms detects *not-same* improper atoms
         imp3 = Improper(atoms[1], atoms[0], atoms[2], atoms[3], imp_types[0])
         self.assertFalse(imp.same_atoms(imp3))
         self.assertFalse(imp3.same_atoms(imp))
@@ -1954,7 +1954,7 @@ class TestTopologyObjects(unittest.TestCase):
             self.assertEqual(atom.idx, -1)
             self.assertTrue(items.changed)
             items.changed = False
-        # Now test the remove method
+        # Now tests the remove method
         self.assertFalse(items.changed)
         items.append(Atom())
         self.assertTrue(items.changed)

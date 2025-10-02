@@ -312,7 +312,7 @@ class TestGromacsTop(FileIOTestCase):
         top2 = GromacsTopologyFile(self.get_fn('phenol_biphenyl.top', written=True))
         self.assertEqual(len(top.residues), 40)
 
-        # Now test this when we use "combine"
+        # Now tests this when we use "combine"
         parm = load_file(os.path.join(get_fn('12.DPPC'), 'topol3.top'))
         fn = self.get_fn('samename.top', written=True)
         parm.residues[3].name = 'SOL' # Rename a DPPC to SOL
@@ -864,7 +864,7 @@ class TestGromacsMissingParameters(FileIOTestCase):
             d2 = d
             break
         else:
-            assert False, 'Bad test parm'
+            assert False, 'Bad tests parm'
         # Now make sure the two dihedrals match where only one wild-card is
         # present
         params = self.top.parameterset
@@ -929,7 +929,7 @@ class TestGromacsMissingParameters(FileIOTestCase):
             if not d1.improper and d1.type is None:
                 break
         else:
-            assert False, 'Bad topology file for test'
+            assert False, 'Bad topology file for tests'
         del self.top.dihedrals[i]
         for i, d2 in enumerate(self.top.dihedrals):
             if get_key(d1) == get_key(d2): continue
@@ -940,7 +940,7 @@ class TestGromacsMissingParameters(FileIOTestCase):
             if not d2.improper and d2.type is None:
                 break
         else:
-            assert False, 'Bad topology file for test'
+            assert False, 'Bad topology file for tests'
         del self.top.dihedrals[i]
         self.top.rb_torsions.extend([d1, d2])
         self.assertRaises(ParameterError, self.top.parametrize)
@@ -1258,7 +1258,7 @@ class TestGromacsGro(FileIOTestCase):
             atom.xx, atom.xy, atom.xz = float(i), 0., 0.
             struct.add_atom(atom, resname=letter, resnum=i, chain=chain)
 
-        # test the possible combinations of the combine argument
+        # tests the possible combinations of the combine argument
         # in a system that IS NOT reordered when writing the topology
         combine_values = None, 'all', [(0, 1)]
         for combine in combine_values:

@@ -18,12 +18,12 @@ from utils import (get_fn, mm, app, has_openmm, has_networkx, has_lxml,
                    FileIOTestCase, CPU, TestCaseRelative, EnergyTestCase)
 from parmed.exceptions import ParameterWarning
 
-@unittest.skipUnless(has_openmm, "Cannot test without OpenMM")
+@unittest.skipUnless(has_openmm, "Cannot tests without OpenMM")
 class TestOpenMM(FileIOTestCase, EnergyTestCase):
 
     def setUp(self):
         super(TestOpenMM, self).setUp()
-        # Take one of the distributed OpenMM FF XML files as a test
+        # Take one of the distributed OpenMM FF XML files as a tests
         self.ffxml = os.path.join(os.path.split(app.__file__)[0], 'data', 'amber99sbildn.xml')
         super(TestOpenMM, self).setUp()
 
@@ -183,7 +183,7 @@ class TestOpenMM(FileIOTestCase, EnergyTestCase):
         top = openmm.load_topology(parm.topology, system)
         np.testing.assert_allclose(parm.box, top.box)
 
-@unittest.skipUnless(has_openmm, 'Cannot test without OpenMM')
+@unittest.skipUnless(has_openmm, 'Cannot tests without OpenMM')
 class TestSystemCreation(unittest.TestCase):
     """ Test various aspect of System creation """
 
@@ -284,10 +284,10 @@ class TestSystemCreation(unittest.TestCase):
         a1.exclude(a5)
         system = struct.createSystem()
 
-@unittest.skipUnless(has_openmm, 'Cannot test without OpenMM')
-@unittest.skipUnless(has_lxml, 'Cannot test without lxml')
-@unittest.skipUnless(has_networkx, 'Cannot test without networkx')
-@unittest.skipUnless(os.getenv('AMBERHOME'), 'Cannot test without AMBERHOME')
+@unittest.skipUnless(has_openmm, 'Cannot tests without OpenMM')
+@unittest.skipUnless(has_lxml, 'Cannot tests without lxml')
+@unittest.skipUnless(has_networkx, 'Cannot tests without networkx')
+@unittest.skipUnless(os.getenv('AMBERHOME'), 'Cannot tests without AMBERHOME')
 class TestWriteAmberParameters(FileIOTestCase):
 
     def test_write_xml_parameters(self):
@@ -642,9 +642,9 @@ Wang, J., Wolf, R. M.; Caldwell, J. W.;Kollman, P. A.; Case, D. A. "Development 
         self.assertEqual(output_lines[16].strip(), control_line1.strip(), 'File contents:\n{}'.format(ffxml.getvalue()))
         self.assertEqual(output_lines[19].strip(), control_line2.strip(), 'File contents:\n{}'.format(ffxml.getvalue()))
 
-@unittest.skipUnless(has_openmm, 'Cannot test without OpenMM')
-@unittest.skipUnless(has_lxml, 'Cannot test without lxml')
-@unittest.skipUnless(has_networkx, 'Cannot test without networkx')
+@unittest.skipUnless(has_openmm, 'Cannot tests without OpenMM')
+@unittest.skipUnless(has_lxml, 'Cannot tests without lxml')
+@unittest.skipUnless(has_networkx, 'Cannot tests without networkx')
 class TestWriteCHARMMParameters(FileIOTestCase):
 
     def test_write_xml_parameters_charmm_multisite_waters(self):

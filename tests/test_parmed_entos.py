@@ -8,7 +8,7 @@ from parmed.entos.imports import constants, QMMMSystem
 from parmed.entos.imports import Molecule
 from utils import get_fn
 
-@skipUnless(HAS_ENTOS, "Entos test cases require Entos packages to be installed")
+@skipUnless(HAS_ENTOS, "Entos tests cases require Entos packages to be installed")
 class TestEntos(TestCase):
 
     def test_to_entos_molecule(self):

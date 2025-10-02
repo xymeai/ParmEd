@@ -611,7 +611,7 @@ class TestCharmmParameters(TestCharmmBase):
         for i, tortype in params.dihedral_types.items():
             for typ in tortype:
                 self.assertAlmostEqual(typ.scee, 1.2)
-        # Now test that adding to the parameter set with a DIFFERENT 1-4 scaling
+        # Now tests that adding to the parameter set with a DIFFERENT 1-4 scaling
         # factor is caught
         with self.assertRaises(exceptions.CharmmError):
             params.read_parameter_file(get_fn('par_all36_prot.prm'))
@@ -622,7 +622,7 @@ class TestCharmmParameters(TestCharmmBase):
         """ Test reading CHARMM parameter file with geometric comb. rule """
         opls = parameters.CharmmParameterSet(get_fn('top_opls_aa.inp'), get_fn('par_opls_aa.inp'))
         self.assertEqual(opls.combining_rule, 'geometric')
-        # Now test error handling corresponding to illegal mixing of
+        # Now tests error handling corresponding to illegal mixing of
         # incompatible parameter files.
         non_opls = parameters.CharmmParameterSet(get_fn('par_all36_prot.prm'))
         self.assertEqual(non_opls.combining_rule, 'lorentz')

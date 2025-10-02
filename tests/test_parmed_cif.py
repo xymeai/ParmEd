@@ -8,7 +8,7 @@
 # Version: 0.001
 #
 # Update:
-#  27-Sep-2012  jdw add test case for reading PDBx structure factor file 
+#  27-Sep-2012  jdw add tests case for reading PDBx structure factor file
 #
 ##
 """
@@ -203,7 +203,7 @@ class PdbxWriterTests(FileIOTestCase):
         for iRow in range(0,myCat.getRowCount()):
             myCat.setValue('some value', 'ref_mon_id',iRow)
             myCat.setValue(100, 'ref_mon_num',iRow)
-        ofh = open(self.get_fn("test-output-2.cif", written=True), "w")            
+        ofh = open(self.get_fn("test-output-2.cif", written=True), "w")
         pdbxW=PdbxWriter(ofh)
         pdbxW.write(myDataList)
         ofh.close()
@@ -222,7 +222,7 @@ class PdbxWriterTests(FileIOTestCase):
         ifh.close()            
 
     def test_read_write_data_file(self):
-        """Test case -  data file read write test
+        """Test case -  data file read write tests
         """
         myDataList=[]
         ifh = open(self.pathPdbxDataFile, "r")            

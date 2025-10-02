@@ -58,7 +58,7 @@ class TestResidueTemplate(unittest.TestCase):
         self.templ.add_bond(a5, a6)
         self.assertEqual(self.templ.empirical_chemical_formula, 'C2H3O')
 
-    @unittest.skipIf(pd is None, "Cannot test without pandas")
+    @unittest.skipIf(pd is None, "Cannot tests without pandas")
     def test_data_frame(self):
         """ Test converting ResidueTemplate to a DataFrame """
         df = self.templ.to_dataframe()
@@ -66,7 +66,7 @@ class TestResidueTemplate(unittest.TestCase):
         self.assertAlmostEqual(df.charge.sum(), 0)
         self.assertEqual(df.atomic_number.sum(), 23)
 
-    @unittest.skipIf(nx is None, "Cannot test without networkx")
+    @unittest.skipIf(nx is None, "Cannot tests without networkx")
     def test_to_networkx(self):
         """ Test converting ResidueTemplate to NetworkX graph """
         a1, a2, a3, a4, a5, a6 = self.templ.atoms
@@ -302,7 +302,7 @@ class TestResidueTemplate(unittest.TestCase):
         self.assertNotIn(a6, a5.bond_partners)
         self.assertEqual(len(templ.bonds), 4)
 
-    @unittest.skipIf(nx is None, "Cannot test without networkx")
+    @unittest.skipIf(nx is None, "Cannot tests without networkx")
     def test_patch_residue(self):
         """ Tests ResidueTemplate.patch_residue function """
         templ = self.templ
@@ -537,13 +537,13 @@ class TestResidueTemplateSaver(utils.FileIOTestCase):
     def test_residue_template_mol2_save(self):
         """ Tests ResidueTemplate.save() method for Mol2 file """
         # Check saving mol2 files by keyword
-        self.ace.save(self.get_fn('test', written=True), format='mol2')
-        self.assertTrue(Mol2File.id_format(self.get_fn('test', written=True)))
-        x = Mol2File.parse(self.get_fn('test', written=True))
+        self.ace.save(self.get_fn('tests', written=True), format='mol2')
+        self.assertTrue(Mol2File.id_format(self.get_fn('tests', written=True)))
+        x = Mol2File.parse(self.get_fn('tests', written=True))
         self._check_templates(x, self.ace, preserve_headtail=False)
-        self.nme.save(self.get_fn('test', written=True), format='mol2')
-        self.assertTrue(Mol2File.id_format(self.get_fn('test', written=True)))
-        x = Mol2File.parse(self.get_fn('test', written=True))
+        self.nme.save(self.get_fn('tests', written=True), format='mol2')
+        self.assertTrue(Mol2File.id_format(self.get_fn('tests', written=True)))
+        x = Mol2File.parse(self.get_fn('tests', written=True))
         self._check_templates(x, self.nme, preserve_headtail=False)
         # Check saving mol2 files by filename extension
         self.ace.save(self.get_fn('test.mol2', written=True))
@@ -575,16 +575,16 @@ class TestResidueTemplateSaver(utils.FileIOTestCase):
     def test_residue_template_pdb_save(self):
         """ Tests ResidueTemplate.save() method for PDB file """
         # Check saving pdb files by keyword
-        self.ace.save(self.get_fn('test', written=True), format='pdb')
-        self.assertTrue(PDBFile.id_format(self.get_fn('test', written=True)))
-        x = PDBFile.parse(self.get_fn('test', written=True))
+        self.ace.save(self.get_fn('tests', written=True), format='pdb')
+        self.assertTrue(PDBFile.id_format(self.get_fn('tests', written=True)))
+        x = PDBFile.parse(self.get_fn('tests', written=True))
         self.assertEqual(len(x.atoms), len(self.ace.atoms))
         for a1, a2 in zip(x.atoms, self.ace.atoms):
             self.assertEqual(a1.name, a2.name)
             self.assertEqual(a1.residue.name, a2.residue.name)
 
         self.nme.save(self.get_fn('test.pdb', written=True))
-        self.assertTrue(PDBFile.id_format(self.get_fn('test', written=True)))
+        self.assertTrue(PDBFile.id_format(self.get_fn('tests', written=True)))
         x = PDBFile.parse(self.get_fn('test.pdb', written=True))
         self.assertEqual(len(x.atoms), len(self.nme.atoms))
         for a1, a2 in zip(x.atoms, self.nme.atoms):
@@ -594,13 +594,13 @@ class TestResidueTemplateSaver(utils.FileIOTestCase):
     def test_residue_template_mol3_save(self):
         """ Tests ResidueTemplate.save() method for Mol3 file """
         # Check saving mol3 files by keyword
-        self.ace.save(self.get_fn('test', written=True), format='mol3')
-        self.assertTrue(Mol2File.id_format(self.get_fn('test', written=True)))
-        x = Mol2File.parse(self.get_fn('test', written=True))
+        self.ace.save(self.get_fn('tests', written=True), format='mol3')
+        self.assertTrue(Mol2File.id_format(self.get_fn('tests', written=True)))
+        x = Mol2File.parse(self.get_fn('tests', written=True))
         self._check_templates(x, self.ace, preserve_headtail=True)
-        self.nme.save(self.get_fn('test', written=True), format='mol3')
-        self.assertTrue(Mol2File.id_format(self.get_fn('test', written=True)))
-        x = Mol2File.parse(self.get_fn('test', written=True))
+        self.nme.save(self.get_fn('tests', written=True), format='mol3')
+        self.assertTrue(Mol2File.id_format(self.get_fn('tests', written=True)))
+        x = Mol2File.parse(self.get_fn('tests', written=True))
         self._check_templates(x, self.nme, preserve_headtail=True)
         # Check saving mol3 files by filename extension
         self.ace.save(self.get_fn('test.mol3', written=True))
@@ -632,13 +632,13 @@ class TestResidueTemplateSaver(utils.FileIOTestCase):
     def test_residue_template_off_save(self):
         """ Tests ResidueTemplate.save() method for OFF lib file """
         # Check saving OFF files by keyword
-        self.ace.save(self.get_fn('test', written=True), format='offlib')
-        self.assertTrue(AmberOFFLibrary.id_format(self.get_fn('test', written=True)))
-        x = AmberOFFLibrary.parse(self.get_fn('test', written=True))['ACE']
+        self.ace.save(self.get_fn('tests', written=True), format='offlib')
+        self.assertTrue(AmberOFFLibrary.id_format(self.get_fn('tests', written=True)))
+        x = AmberOFFLibrary.parse(self.get_fn('tests', written=True))['ACE']
         self._check_templates(x, self.ace, preserve_headtail=True)
-        self.nme.save(self.get_fn('test', written=True), format='offlib')
-        self.assertTrue(AmberOFFLibrary.id_format(self.get_fn('test', written=True)))
-        x = AmberOFFLibrary.parse(self.get_fn('test', written=True))['NME']
+        self.nme.save(self.get_fn('tests', written=True), format='offlib')
+        self.assertTrue(AmberOFFLibrary.id_format(self.get_fn('tests', written=True)))
+        x = AmberOFFLibrary.parse(self.get_fn('tests', written=True))['NME']
         self._check_templates(x, self.nme, preserve_headtail=True)
         # Check saving OFF files by filename extension
         self.ace.save(self.get_fn('test.lib', written=True))
@@ -678,16 +678,16 @@ class TestResidueTemplateSaver(utils.FileIOTestCase):
     def test_residue_template_container_mol2_save(self):
         """ Tests ResidueTemplateContainer.save() method for mol2 files """
         # Check saving mol2 files by keyword
-        self.container.save(self.get_fn('test', written=True), format='mol2')
-        self.assertTrue(Mol2File.id_format(self.get_fn('test', written=True)))
-        x = Mol2File.parse(self.get_fn('test', written=True))
+        self.container.save(self.get_fn('tests', written=True), format='mol2')
+        self.assertTrue(Mol2File.id_format(self.get_fn('tests', written=True)))
+        x = Mol2File.parse(self.get_fn('tests', written=True))
         self.assertIsInstance(x, ResidueTemplateContainer)
         self._check_templates(x[0], self.ace, preserve_headtail=False)
         self._check_templates(x[1], self.nme, preserve_headtail=False)
         # Make sure it is a multi-@<MOLECULE> mol2 file (so it can't be loaded
         # as a Structure)
         self.assertRaises(Mol2Error, lambda:
-                Mol2File.parse(self.get_fn('test', written=True), structure=True))
+                Mol2File.parse(self.get_fn('tests', written=True), structure=True))
         # Check saving mol2 files by filename extension
         self.container.save(self.get_fn('test.mol2', written=True))
         self.assertTrue(Mol2File.id_format(self.get_fn('test.mol2', written=True)))
@@ -712,16 +712,16 @@ class TestResidueTemplateSaver(utils.FileIOTestCase):
     def test_residue_template_container_mol3_save(self):
         """ Tests ResidueTemplateContainer.save() method for mol3 files """
         # Check saving mol3 files by keyword
-        self.container.save(self.get_fn('test', written=True), format='mol3')
-        self.assertTrue(Mol2File.id_format(self.get_fn('test', written=True)))
-        x = Mol2File.parse(self.get_fn('test', written=True))
+        self.container.save(self.get_fn('tests', written=True), format='mol3')
+        self.assertTrue(Mol2File.id_format(self.get_fn('tests', written=True)))
+        x = Mol2File.parse(self.get_fn('tests', written=True))
         self.assertIsInstance(x, ResidueTemplateContainer)
         self._check_templates(x[0], self.ace, preserve_headtail=True)
         self._check_templates(x[1], self.nme, preserve_headtail=True)
         # Make sure it is a multi-@<MOLECULE> mol3 file (so it can't be loaded
         # as a Structure)
         with self.assertRaises(Mol2Error):
-            Mol2File.parse(self.get_fn('test', written=True), structure=True)
+            Mol2File.parse(self.get_fn('tests', written=True), structure=True)
         # Check saving mol3 files by filename extension
         self.container.save(self.get_fn('test.mol3', written=True))
         self.assertTrue(Mol2File.id_format(self.get_fn('test.mol3', written=True)))
@@ -746,9 +746,9 @@ class TestResidueTemplateSaver(utils.FileIOTestCase):
     def test_residue_template_container_off_save(self):
         """ Tests ResidueTemplateContainer.save() method for Amber OFF files """
         # Check saving Amber OFF files by keyword
-        self.container.save(self.get_fn('test', written=True), format='offlib')
-        self.assertTrue(AmberOFFLibrary.id_format(self.get_fn('test', written=True)))
-        x = AmberOFFLibrary.parse(self.get_fn('test', written=True))
+        self.container.save(self.get_fn('tests', written=True), format='offlib')
+        self.assertTrue(AmberOFFLibrary.id_format(self.get_fn('tests', written=True)))
+        x = AmberOFFLibrary.parse(self.get_fn('tests', written=True))
         self._check_templates(x['ACE'], self.ace, preserve_headtail=True)
         self._check_templates(x['NME'], self.nme, preserve_headtail=True)
         # Check saving mol2 files by filename extension
@@ -1043,7 +1043,7 @@ class TestAmberOFFLibrary(utils.FileIOTestCase):
         with self.assertRaises(RuntimeError):
             AmberOFFLibrary.parse(self.get_fn('test.off', written=True))
 
-    @unittest.skipIf(pd is None, "Cannot test without pandas")
+    @unittest.skipIf(pd is None, "Cannot tests without pandas")
     def test_data_frame(self):
         """ Test converting ResidueTemplate to a DataFrame """
         offlib = AmberOFFLibrary.parse(get_fn('amino12.lib'))
@@ -1107,10 +1107,10 @@ class TestAmberOFFLeapCompatibility(utils.FileIOTestCase):
         os.chdir(self.cwd)
         super().tearDown()
 
-    @unittest.skipIf(utils.which('tleap') is None, "Cannot test without tleap")
+    @unittest.skipIf(utils.which('tleap') is None, "Cannot tests without tleap")
     def test_amber_amino_internal(self):
         """ Test that the internal AA OFF library writes work with LEaP """
-        # First create the parm to test against... we are in "writes" right now
+        # First create the parm to tests against... we are in "writes" right now
         offlib = AmberOFFLibrary.parse(get_fn('amino12.lib'))
         AmberOFFLibrary.write(offlib, 'testinternal.lib')
         f = open('tleap_orig.in', 'w')
@@ -1150,7 +1150,7 @@ quit
         changeRadii(parm2, 'mbondi2').execute()
         self._check_corresponding_files(pdb1, pdb2, parm1, parm2)
 
-    @unittest.skipIf(utils.which('tleap') is None, "Cannot test without tleap")
+    @unittest.skipIf(utils.which('tleap') is None, "Cannot tests without tleap")
     @pytest.mark.xfail
     def test_amber_amino_termini(self):
         """ Test that the terminal AA OFF library writes work with LEaP """

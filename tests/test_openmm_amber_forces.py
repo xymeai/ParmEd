@@ -30,7 +30,7 @@ def energy_decomposition(parm, context):
         ret[key] = val
     return ret
 
-@unittest.skipUnless(has_openmm, "Cannot test without OpenMM")
+@unittest.skipUnless(has_openmm, "Cannot tests without OpenMM")
 class TestAmberParm(TestCaseRelative, QuantityTestCase):
 
     def test_gas_energy_conf_1(self):
@@ -56,7 +56,7 @@ class TestAmberParm(TestCaseRelative, QuantityTestCase):
         # self.assertAlmostEqual(energies['dihedral'], 0.2218, places=4)
         self.assertRelativeEqual(energies['nonbonded'], 0.0, places=3)
 
-        # Now test the forces to make sure that they are computed correctly in
+        # Now tests the forces to make sure that they are computed correctly in
         # the presence of extra points
         pstate = sim.context.getState(getForces=True)
         pf = pstate.getForces().value_in_unit(u.kilojoule_per_mole/u.nanometer)
@@ -96,7 +96,7 @@ class TestAmberParm(TestCaseRelative, QuantityTestCase):
         # self.assertAlmostEqual(energies['dihedral'],-2.7931, places=4)
         self.assertRelativeEqual(energies['nonbonded'], 0.0, places=3)
 
-        # Now test the forces to make sure that they are computed correctly in
+        # Now tests the forces to make sure that they are computed correctly in
         # the presence of extra points
         pstate = sim.context.getState(getForces=True)
         pf = pstate.getForces().value_in_unit(u.kilojoule_per_mole/u.nanometer)
@@ -131,7 +131,7 @@ class TestAmberParm(TestCaseRelative, QuantityTestCase):
         self.assertAlmostEqual(energies['dihedral'], 0.0039, places=4)
         self.assertRelativeEqual(energies['nonbonded'], 3.3789, places=3)
 
-        # Now test the forces to make sure that they are computed correctly in
+        # Now tests the forces to make sure that they are computed correctly in
         # the presence of extra points
         pstate = sim.context.getState(getForces=True)
         pf = pstate.getForces().value_in_unit(u.kilojoule_per_mole/u.nanometer)
@@ -175,7 +175,7 @@ class TestAmberParm(TestCaseRelative, QuantityTestCase):
         # self.assertAlmostEqual(energies['dihedral'], 0.0093, places=4)
         self.assertRelativeEqual(energies['nonbonded'], 0.0000+6.7526+0.0492-6.0430, places=3)
 
-        # Now test the forces to make sure that they are computed correctly in
+        # Now tests the forces to make sure that they are computed correctly in
         # the presence of extra points
         pstate = sim.context.getState(getForces=True)
         pf = pstate.getForces().value_in_unit(u.kilojoule_per_mole/u.nanometer)

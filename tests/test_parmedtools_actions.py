@@ -438,7 +438,7 @@ class TestNonParmActions(FileIOTestCase):
 class TestAmberParmActions(FileIOTestCase, TestCaseRelative):
     """ Tests actions on Amber prmtop files """
 
-    @unittest.skipIf(PYPY, 'Cannot test with NetCDF on pypy')
+    @unittest.skipIf(PYPY, 'Cannot tests with NetCDF on pypy')
     def test_parmout_outparm_load_restrt(self):
         """ Test parmout, outparm, and loadRestrt actions on AmberParm """
         parm = copy(gasparm)
@@ -659,7 +659,7 @@ class TestAmberParmActions(FileIOTestCase, TestCaseRelative):
                     self.assertEqual(radii, 1.2)
             else:
                 self.assertEqual(radii, 1.5)
-        # Now test bad input
+        # Now tests bad input
         self.assertRaises(exc.ChangeRadiiError, lambda:
                           PT.changeRadii(parm, 'mbondi6').execute())
         # Test that it works on non-Amber topologies
@@ -872,7 +872,7 @@ class TestAmberParmActions(FileIOTestCase, TestCaseRelative):
 
     def test_print_lj_types(self):
         """ Test printLJTypes on AmberParm """
-        # Simple test
+        # Simple tests
         act = PT.printLJTypes(gasparm, '@1')
         for line in str(act).split('\n'):
             if not line.startswith('ATOM'):
@@ -1106,7 +1106,7 @@ class TestAmberParmActions(FileIOTestCase, TestCaseRelative):
         self.assertEqual(str(act), "Removing mask ':1' (%d atoms) "
                          "from the topology file." % (len(gasparm.residues[0])))
         np.testing.assert_equal(parm.box, [10, 10, 10, 90, 90, 90])
-        # Now test nobox
+        # Now tests nobox
         act = PT.strip(parm, ':1', 'nobox')
         act.execute()
         str(act)
@@ -1304,7 +1304,7 @@ class TestAmberParmActions(FileIOTestCase, TestCaseRelative):
         # Pick the bond we plan to delete, pick out every angle and dihedral
         # that contains that bond, and then delete it. Then make sure none of
         # the valence terms that contained that bond remain afterwards. We
-        # already have a test to make sure that the __contains__ method works
+        # already have a tests to make sure that the __contains__ method works
         # for atoms and bonds.
         for bond in parm.atoms[0].bonds:
             if parm.atoms[4] in bond: break
@@ -1672,7 +1672,7 @@ class TestAmberParmActions(FileIOTestCase, TestCaseRelative):
         with self.assertRaises(exc.HMassRepartitionError):
             PT.HMassRepartition(parm, 100.0).execute()
 
-    @unittest.skipUnless(HAS_RDKIT, 'Cannot test without RDKit')
+    @unittest.skipUnless(HAS_RDKIT, 'Cannot tests without RDKit')
     def test_ring_h_mass_repartition(self):
         """
         Test HMassRepartition on AmberParm
@@ -1700,7 +1700,7 @@ class TestAmberParmActions(FileIOTestCase, TestCaseRelative):
 
 
 
-    @unittest.skipUnless(has_openmm, 'Cannot test without OpenMM')
+    @unittest.skipUnless(has_openmm, 'Cannot tests without OpenMM')
     def test_openmm_action(self):
         """ Tests the OpenMM action for AmberParm """
         parm = AmberParm(self.get_fn('ash.parm7'))
@@ -1757,7 +1757,7 @@ Basic MD simulation
         diff = pmd.load_file(self.get_fn('ash.rst7')).coordinates - t.coordinates[4]
         self.assertTrue((np.abs(diff) > 1e-3).any())
 
-    @unittest.skipUnless(has_openmm, 'Cannot test energy function without OMM')
+    @unittest.skipUnless(has_openmm, 'Cannot tests energy function without OMM')
     def test_energy_openmm(self):
         """ Tests the energy action with OpenMM """
         parm = AmberParm(self.get_fn('ash.parm7'), self.get_fn('ash.rst7'))
@@ -1771,7 +1771,7 @@ Basic MD simulation
         ene = float(re.findall(r'TOTAL\s+=\s+([-\d\.]+)', info)[0])
         self.assertLess(abs(ene + 23.01), 0.05)
 
-    @unittest.skipIf(sander is None, 'Cannot test energy function without pysander')
+    @unittest.skipIf(sander is None, 'Cannot tests energy function without pysander')
     def test_energy_sander_gb(self):
         """ Tests gb energy action with sander """
         parm = AmberParm(self.get_fn('ash.parm7'), self.get_fn('ash.rst7'))
@@ -1789,7 +1789,7 @@ Basic MD simulation
         parm.coordinates = None
         self.assertRaises(exc.SimulationError, lambda: PT.energy(parm).execute())
 
-    @unittest.skipIf(sander is None, 'Cannot test energy function without pysander')
+    @unittest.skipIf(sander is None, 'Cannot tests energy function without pysander')
     def test_energy_sander_explicit_water(self):
         """ Tests energy action with sander """
         parm = AmberParm(self.get_fn('solv2.parm7'), self.get_fn('solv2.rst7'))
@@ -1802,7 +1802,7 @@ Basic MD simulation
         self.assertLess(abs(ene + 12785.68), 0.05)
         self.assertRaises(exc.SimulationError, lambda: PT.energy(parm, cutoff=-2.0).execute())
 
-    @unittest.skipIf(sander is None, 'Cannot test amber minimization without pysander')
+    @unittest.skipIf(sander is None, 'Cannot tests amber minimization without pysander')
     def test_minimize_from_action_tools(self):
         """ Tests the minimize action with pysander and scipy """
         # just want to make sure those minimizations runnable
@@ -1821,8 +1821,8 @@ Basic MD simulation
             pmd.tools.minimize(parm, igb=8, maxcyc=10).execute()
         self.assertRaises(exc.SimulationError, test_coordinates_is_None)
 
-    @unittest.skipIf(True, "OpenMM minimization test is currently failing") # Need to figure out why this is segfaulting in parallel
-    @unittest.skipUnless(has_openmm, 'Cannot test minimize function without OpenMM')
+    @unittest.skipIf(True, "OpenMM minimization tests is currently failing") # Need to figure out why this is segfaulting in parallel
+    @unittest.skipUnless(has_openmm, 'Cannot tests minimize function without OpenMM')
     def test_minimize_openmm(self):
         """ Tests the minimize action with OpenMM """
         self._check_emin_omm(AmberParm(self.get_fn('ash.parm7'), self.get_fn('ash.rst7')), 0)
@@ -1935,7 +1935,7 @@ Basic MD simulation
                          [int(a.residue.idx == 5) for a in parm.atoms])
         self.assertEqual(len(parm.residues), 6) # Kept first 5 and mutant ALA
 
-        output.truncate() # Reset the buffer for the next test
+        output.truncate() # Reset the buffer for the next tests
 
         # Check some error processing
         self.assertRaises(exc.TiMergeError, lambda:
@@ -1993,7 +1993,7 @@ Basic MD simulation
         self.assertEqual(scmask2.Selection(),
                          [int(a.residue.idx in (5, 7)) for a in parm.atoms])
 
-        output.truncate() # Reset the buffer for the next test
+        output.truncate() # Reset the buffer for the next tests
         # Error handling checking
         parm = AmberParm(self.get_fn('ava_aaa.solv.parm7'), self.get_fn('ava_aaa.solv.rst7'))
         self.assertRaises(exc.TiMergeError, lambda:
@@ -2055,7 +2055,7 @@ Basic MD simulation
         """ Test writeCoordinates method """
         parm = copy(gasparm)
         PT.loadCoordinates(parm, self.get_fn('trx.inpcrd')).execute()
-        basefn = self.get_fn('test', written=True)
+        basefn = self.get_fn('tests', written=True)
         # NetCDF trajectory
         act = PT.writeCoordinates(parm, basefn + '.nc')
         act.execute()
@@ -2102,13 +2102,13 @@ Basic MD simulation
         self.assertRaises(exc.FileExists, act.execute)
 
     def test_check_validity(self):
-        """ Tests the checkValidity test """
+        """ Tests the checkValidity tests """
         act = PT.checkValidity(gasparm)
         str(act)
         act.execute()
 
     def test_check_validity_solvated_parm(self):
-        """ Tests the checkValidity test for a solvated topology """
+        """ Tests the checkValidity tests for a solvated topology """
         act = PT.checkValidity(solvparm)
         str(act)
         act.execute()
@@ -2333,7 +2333,7 @@ class TestChamberParmActions(FileIOTestCase, TestCaseRelative):
                     self.assertEqual(radii, 1.2)
             else:
                 self.assertEqual(radii, 1.5)
-        # Now test bad input
+        # Now tests bad input
         with self.assertRaises(exc.ChangeRadiiError):
             PT.changeRadii(parm, 'mbondi6').execute()
 
@@ -2567,7 +2567,7 @@ class TestChamberParmActions(FileIOTestCase, TestCaseRelative):
 
     def test_print_lj_types(self):
         """ Test printLJTypes for ChamberParm """
-        # Simple test
+        # Simple tests
         act = PT.printLJTypes(gascham, '@1')
         for line in str(act).split('\n'):
             if not line.startswith('ATOM'):
@@ -2668,7 +2668,7 @@ class TestChamberParmActions(FileIOTestCase, TestCaseRelative):
         self.assertEqual(parm.ptr('natom'), 21)
         self.assertEqual(len(parm.atoms), 21)
         # Good enough for here. The strip action is repeatedly tested in the
-        # core Amber test suite as part of the MM/PBSA tests via ante-MMPBSA.py
+        # core Amber tests suite as part of the MM/PBSA tests via ante-MMPBSA.py
         # and that part also tests that the energies come out correct as well
 
     def test_define_solvent(self):
@@ -2774,7 +2774,7 @@ class TestChamberParmActions(FileIOTestCase, TestCaseRelative):
         # Pick the bond we plan to delete, pick out every angle and dihedral
         # that contains that bond, and then delete it. Then make sure none of
         # the valence terms that contained that bond remain afterwards. We
-        # already have a test to make sure that the __contains__ method works
+        # already have a tests to make sure that the __contains__ method works
         # for atoms and bonds.
         for bond in parm.atoms[10].bonds:
             if parm.atoms[12] in bond: break
@@ -2813,7 +2813,7 @@ class TestChamberParmActions(FileIOTestCase, TestCaseRelative):
         # Pick the bond we plan to delete, pick out every angle and dihedral
         # that contains that bond, and then delete it. Then make sure none of
         # the valence terms that contained that bond remain afterwards. We
-        # already have a test to make sure that the __contains__ method works
+        # already have a tests to make sure that the __contains__ method works
         # for atoms and bonds.
         bond = parm.atoms[1].bonds[0]
         deleted_angles = list()
@@ -3290,7 +3290,7 @@ class TestAmoebaParmActions(FileIOTestCase, TestCaseRelative):
         self.assertEqual(parm.ptr('natom'), natoms-lenres)
         self.assertEqual(len(parm.atoms), natoms-lenres)
         # Good enough for here. The strip action is repeatedly tested in the
-        # core Amber test suite as part of the MM/PBSA tests via ante-MMPBSA.py
+        # core Amber tests suite as part of the MM/PBSA tests via ante-MMPBSA.py
         # and that part also tests that the energies come out correct as well
 
     def test_define_solvent(self):
@@ -3558,7 +3558,7 @@ class TestOtherParm(FileIOTestCase):
         repr(PT.printDihedrals(parm, ':*', ':*', ':1'))
         repr(PT.printDihedrals(parm, ':*', ':*', ':*', ':*'))
 
-    @unittest.skipUnless(HAS_GROMACS, 'Cannot test without GROMACS')
+    @unittest.skipUnless(HAS_GROMACS, 'Cannot tests without GROMACS')
     def test_parm(self):
         """ Tests the parm action on a series of topology types and listParms """
         parms = parmlist.ParmList()

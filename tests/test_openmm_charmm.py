@@ -39,7 +39,7 @@ charmm_nbfix.box = [3.271195e1, 3.299596e1, 3.300715e1, 90, 90, 90]
 param22 = CharmmParameterSet(get_fn('top_all22_prot.inp'), get_fn('par_all22_prot.inp'))
 param36 = CharmmParameterSet(get_fn('par_all36_prot.prm'), get_fn('toppar_water_ions.str'))
 
-@unittest.skipUnless(has_openmm, "Cannot test without OpenMM")
+@unittest.skipUnless(has_openmm, "Cannot tests without OpenMM")
 class TestCharmmFiles(TestCaseRelative):
 
     def test_gas_energy(self):
@@ -295,7 +295,7 @@ class TestCharmmFiles(TestCaseRelative):
                 d.scee = 0
         self.assertRaises(ValueError, parm.createSystem)
 
-@unittest.skipUnless(has_openmm, "Cannot test without OpenMM")
+@unittest.skipUnless(has_openmm, "Cannot tests without OpenMM")
 class TestCharmmDrudeFiles(TestCaseRelative):
 
     @pytest.mark.xfail

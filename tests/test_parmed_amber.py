@@ -174,7 +174,7 @@ class TestReadParm(FileIOTestCase):
         for a1, a2 in zip(parm.atoms, parm2.atoms):
             self.assertEqual(a1.atomic_number, a2.atomic_number)
 
-    @unittest.skipUnless(has_openmm, 'Cannot test without OpenMM')
+    @unittest.skipUnless(has_openmm, 'Cannot tests without OpenMM')
     def test_change_detection(self):
         """ Test the is_changed function on AmberParm """
         parm = readparm.AmberParm(get_fn('ash.parm7'), get_fn('ash.rst7'))
@@ -687,7 +687,7 @@ class TestReadParm(FileIOTestCase):
 
     def test_corrupt_parms(self):
         """ Test proper error detection on bad topology files """
-        # First test proper error handling of a truncated section
+        # First tests proper error handling of a truncated section
         parm = readparm.AmberFormat(get_fn('ash.parm7'))
         atom_names = parm.parm_data['ATOM_NAME'][:]
         del parm.parm_data['ATOM_NAME'][0]
@@ -718,7 +718,7 @@ class TestReadParm(FileIOTestCase):
         np.testing.assert_allclose(parm2.velocities, parm.velocities)
         np.testing.assert_allclose(parm2.box, parm.box)
 
-    @unittest.skipUnless(HAS_GROMACS, 'Cannot test without Gromacs')
+    @unittest.skipUnless(HAS_GROMACS, 'Cannot tests without Gromacs')
     def test_amber_parm_from_structure(self):
         """ Tests AmberParm.from_structure """
         aparm = load_file(get_fn('ash.parm7'), get_fn('ash.rst7'))
@@ -869,7 +869,7 @@ def _num_unique_dtypes(dct):
 class TestParameterFiles(FileIOTestCase):
     """ Tests Amber parameter and frcmod files """
 
-    @unittest.skipIf(os.getenv('AMBERHOME') is None, 'Cannot test w/out Amber')
+    @unittest.skipIf(os.getenv('AMBERHOME') is None, 'Cannot tests w/out Amber')
     def test_find_amber_files(self):
         """ Tests the Amber file finder helper function """
         finder = parameters._find_amber_file
@@ -885,7 +885,7 @@ class TestParameterFiles(FileIOTestCase):
         """ Tests the detection of Amber frcmod files """
         for fname in glob.glob(os.path.join(get_fn('parm'), 'frcmod.*')):
             self.assertTrue(parameters.AmberParameterSet.id_format(fname))
-        # Now try creating a bunch of non-frcmod files to test the file ID
+        # Now try creating a bunch of non-frcmod files to tests the file ID
         # discrimination
         fn = self.get_fn('test.frcmod', written=True)
         with open(fn, 'w') as f:
@@ -896,7 +896,7 @@ class TestParameterFiles(FileIOTestCase):
         """ Tests the detection of Amber parm.dat files """
         for fname in glob.glob(os.path.join(get_fn('parm'), 'parm*.dat')):
             self.assertTrue(parameters.AmberParameterSet.id_format(fname))
-        # Now try a bunch of slightly-off files to test discrimination
+        # Now try a bunch of slightly-off files to tests discrimination
         for fname in glob.glob(os.path.join(get_fn('noparm'), '*')):
             self.assertFalse(parameters.AmberParameterSet.id_format(fname))
 
@@ -1119,7 +1119,7 @@ class TestParameterFiles(FileIOTestCase):
         self.assertEqual(params.nbfix_types[('HC', 'OH')][0], math.sqrt(0.0150*0.2))
         self.assertEqual(params.nbfix_types[('HC', 'OH')][1], 1.377+1.721)
 
-    @unittest.skipIf(os.getenv('AMBERHOME') is None, 'Cannot test w/out Amber')
+    @unittest.skipIf(os.getenv('AMBERHOME') is None, 'Cannot tests w/out Amber')
     def test_load_leaprc(self):
         """ Tests loading a leaprc file to define a force field """
         fn = os.path.join(os.getenv('AMBERHOME'), 'dat', 'leap', 'cmd', 'leaprc.protein.ff14SB')
@@ -1266,7 +1266,7 @@ class TestParameterFiles(FileIOTestCase):
         self.assertTrue(params.improper_periodic_types)
         self.assertTrue(params.residues)
 
-    @unittest.skipIf(os.getenv('AMBERHOME') is None, 'Cannot test w/out Amber')
+    @unittest.skipIf(os.getenv('AMBERHOME') is None, 'Cannot tests w/out Amber')
     def test_load_lib_with_blank_lines(self):
         """ Tests parsing of .lib files with blank lines """
         fn = os.path.join(os.getenv('AMBERHOME'), 'dat', 'leap', 'lib', 'all_aminoAM1.lib')
@@ -1303,7 +1303,7 @@ class TestParameterFiles(FileIOTestCase):
         self.assertGreater(len(lib2['CYCHBOX'][0].bonds), 0)
         np.testing.assert_allclose(lib2['CYCHBOX'].box, struct.box, atol=0.001)
 
-    @unittest.skipIf(os.getenv('AMBERHOME') is None, 'Cannot test w/out Amber')
+    @unittest.skipIf(os.getenv('AMBERHOME') is None, 'Cannot tests w/out Amber')
     def test_lib_without_residueconnect(self):
         """ Test parsing OFF library files without RESIDUECONNECT """
         fn = os.path.join(os.getenv('AMBERHOME'), 'dat', 'leap', 'lib', 'lipid14.lib')

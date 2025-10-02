@@ -3,11 +3,13 @@ The purpose of this script is to convert all of the CCD-generated molecules to R
 extract the hybridization for each templated residue
 """
 import json
+from pathlib import Path
+
 from rdkit import Chem
 from tqdm import tqdm
-from pathlib import Path
+
+from parmed.modeller.standardtemplates import get_nonstandard_ccd_residues
 from parmed.rdkit import RDKit
-from parmed.modeller.standardtemplates import get_standard_residue_template_library, get_nonstandard_ccd_residues
 
 # residues = get_standard_residue_template_library()
 residues = get_nonstandard_ccd_residues()

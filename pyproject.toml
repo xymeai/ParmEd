@@ -24,9 +24,6 @@ dependencies = [
 
 [tool.setuptools]
 package-dir = {"" = "src"}
-ext-modules = [
-#    {name = "streaming_form_data._parser", sources = ["src/streaming_form_data/_parser.c"]}
-]
 
 [tool.pytest.ini_options]
 pythonpath = [

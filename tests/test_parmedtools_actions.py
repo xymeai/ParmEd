@@ -1,32 +1,31 @@
 """
 Tests for the various actions in ParmEd
 """
-from copy import copy
-from io import StringIO
-import numpy as np
 import os
-import parmed as pmd
-import pytest
-from parmed import periodic_table, gromacs, load_file, amber
-from parmed.amber import AmberParm, ChamberParm, AmoebaParm, AmberFormat, AmberMask
-from parmed.charmm import CharmmPsfFile
-from parmed.exceptions import AmberWarning, CharmmWarning
-from parmed.formats import PDBFile, CIFFile
-from parmed.utils import PYPY
-import parmed.unit as u
-import parmed.tools as PT
-from parmed.tools import exceptions as exc
-from parmed.tools import parmlist
-from parmed.tools.simulations import sanderapi
-from parmed.tools.actions import ArgumentList
 import re
-import saved_outputs as saved
 import sys
 import unittest
+from copy import copy
+from io import StringIO
+
+import numpy as np
+import pytest
+
+import parmed as pmd
+import parmed.tools as PT
+import parmed.unit as u
+import saved_outputs as saved
+from parmed import periodic_table, load_file, amber
+from parmed.amber import AmberParm, ChamberParm, AmoebaParm, AmberFormat, AmberMask
+from parmed.charmm import CharmmPsfFile
+from parmed.formats import PDBFile, CIFFile
+from parmed.tools import exceptions as exc
+from parmed.tools import parmlist
+from parmed.utils import PYPY
 from utils import (HAS_GROMACS, get_fn, get_saved_fn, diff_files,
-        FileIOTestCase, TestCaseRelative, detailed_diff, has_openmm,
-        create_random_structure, app)
-import warnings
+                   FileIOTestCase, TestCaseRelative, detailed_diff, has_openmm,
+                   create_random_structure, app)
+
 try:
     import pandas as pd
 except ImportError:
@@ -3670,7 +3669,6 @@ class TestOtherParm(FileIOTestCase):
 
     def test_delete_bond(self):
         """ Tests deleteBond on arbitrary Structure instances """
-        from parmed import periodic_table
         struct = create_random_structure(parametrized=True)
         act = PT.deleteBond(struct, '@%d' % (struct.bonds[0].atom1.idx+1),
                 '@%d' % (struct.bonds[0].atom2.idx+1))

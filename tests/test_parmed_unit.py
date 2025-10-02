@@ -1,13 +1,14 @@
 """
 Tests the functionality in the parmed.unit package.
 """
-import utils
-import numpy as np
-from parmed import unit as u
 import copy
 import math
-import unittest
+
+import numpy as np
+
 import utils
+from parmed import unit as u
+
 
 class TestUnits(utils.QuantityTestCase):
 
@@ -579,7 +580,7 @@ class TestUnits(utils.QuantityTestCase):
         """ Miscellaneous tests for the unit package """
         self.assertTrue(u.meter is not None)
         self.assertFalse(u.meter is None)
-        self.assertEqual(repr(1.2*u.meters), 'Quantity(value=1.2, unit=meter)')
+        self.assertEqual(repr(1.2*u.meters), '1.2 m')
         class Foo(object):
             def bar(self):
                 return 'bar'

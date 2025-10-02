@@ -2,8 +2,8 @@
 clear-dist:
     rm -rf ./dist
 
-package: clear-dist
-    uv build
+package *flags: clear-dist
+    uv build {{flags}}
 
 publish: package
     uv publish --index xyme-pypi --username "test"

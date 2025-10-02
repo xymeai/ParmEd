@@ -1,7 +1,6 @@
 import os
 import shutil
 import sys
-import versioneer
 import struct
 import warnings
 
@@ -85,10 +84,10 @@ packages = ['parmed', 'parmed.amber', 'parmed.modeller',
             'parmed.tools.simulations', 'parmed.entos', 'parmed.dlpoly']
 
 # Optimized readparm
-sources = [os.path.join('src', '_rdparm.cpp'),
-           os.path.join('src', 'readparm.cpp')]
-depends = [os.path.join('src', 'CompatabilityMacros.h'),
-           os.path.join('src', 'readparm.h')]
+sources = [os.path.join('src/extensions', '_rdparm.cpp'),
+           os.path.join('src/extensions', 'readparm.cpp')]
+depends = [os.path.join('src/extensions', 'CompatabilityMacros.h'),
+           os.path.join('src/extensions', 'readparm.h')]
 include_dirs = [os.path.join(os.path.abspath('.'), 'src')]
 
 definitions = []
@@ -114,9 +113,9 @@ if __name__ == '__main__':
         extensions = []
 
     cmdclass = dict(clean=CleanCommand)
-    cmdclass.update(versioneer.get_cmdclass())
+    cmdclass.update()
     setup(name='ParmEd',
-          version=versioneer.get_version(),
+          version='0.0.0',
           description='Inter-package toolkit for molecular mechanical simulations',
           author='Jason Swails',
           author_email='jason.swails@gmail.com',

@@ -211,7 +211,7 @@ def _get_substr(w, record, state):
     end = start + w
     # if end > len(record):
     #     substr = ''
-    #     # TODO: test if no chars transmitted, then poition does not change
+    #     # TODO: tests if no chars transmitted, then poition does not change
     #     w = 0
     # else:
     substr = record[start:end]

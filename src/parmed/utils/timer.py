@@ -69,7 +69,7 @@ class Timer(object):
       self.end_all()
       
       tfactor = 1
-      # Now test the magnitude of the global timer so we can decide what the 
+      # Now tests the magnitude of the global timer so we can decide what the
       # reported units should be
       if self.timers['global'] > 60 * 60 * 48:
          self.units = 'days'

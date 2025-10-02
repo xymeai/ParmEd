@@ -1464,7 +1464,7 @@ class ThreeParticleExtraPointFrame(ExtraPointFrame):
                 theteq = math.acos((dp1*dp1+dp2*dp2-d12*d12)/(2*dp1*dp2))
             else:
                 for ang in a1.angles:
-                    if a2 in ang and a2 is not ang.atom2: #TODO test angle.type is None
+                    if a2 in ang and a2 is not ang.atom2: #TODO tests angle.type is None
                         theteq = ang.type.theteq * DEG_TO_RAD
                         break
                 else:
@@ -1819,7 +1819,7 @@ class Bond:
 
     Notes
     -----
-    You can test whether an :class:`Atom` is contained within the bond using the
+    You can tests whether an :class:`Atom` is contained within the bond using the
     `in` operator. A `MoleculeError` is raised if `atom1` and `atom2` are identical.
     This bond instance is `append`ed to the `bonds` list for both `atom1` and
     `atom2` and is automatically removed from those lists upon garbage
@@ -2849,9 +2849,9 @@ class UreyBradley(Bond):
 
     Notes
     -----
-    You can test whether an :class:`Atom` is contained within the bond using the
+    You can tests whether an :class:`Atom` is contained within the bond using the
     `in` operator. A :class:`MoleculeError` is raised if `atom1` and `atom2` are
-    identical.  You can also test that a :class:`Bond` is contained in this
+    identical.  You can also tests that a :class:`Bond` is contained in this
     Urey-Bradley valence angle
 
     Examples

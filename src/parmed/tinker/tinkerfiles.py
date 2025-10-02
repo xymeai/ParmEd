@@ -109,7 +109,7 @@ class XyzFile(Structure, metaclass=FileFormatType):
         Parameters
         ----------
         filename : str
-            Name of the file to test whether or not it is a mol2 file
+            Name of the file to tests whether or not it is a mol2 file
 
         Returns
         -------

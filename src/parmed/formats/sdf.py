@@ -17,7 +17,7 @@ class SDFFile(metaclass=FileFormatType):
         Parameters
         ----------
         filename : str
-            Name of the file to test whether or not it is a sdf file
+            Name of the file to tests whether or not it is a sdf file
 
         Returns
         -------

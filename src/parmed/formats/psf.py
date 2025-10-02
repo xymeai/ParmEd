@@ -74,7 +74,7 @@ class PSFFile(metaclass=FileFormatType):
 
         Examples
         --------
-        >>> cs = CharmmPsfFile('testfiles/test.psf')
+        >>> cs = CharmmPsfFile('testfiles/tests.psf')
         >>> cs.write_psf('testfiles/test2.psf')
         """
         # See if this is an extended format

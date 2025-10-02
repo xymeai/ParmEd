@@ -1,0 +1,42 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = ["setuptools>=64.0.0", "setuptools_scm>=6.2.0"]
+
+[project]
+name = "parmed"
+version = "0.1.0"
+description = "Inter-package toolkit for molecular mechanical simulations"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [
+    { name = 'Jason Swails' }
+]
+dependencies = [
+    "lxml>=6.0.2",
+    "netcdf4>=1.7.2",
+    "networkx>=3.5",
+    "nglview>=3.1.4",
+    "openmm>=8.3.1",
+    "pandas>=2.3.3",
+    "rdkit>=2025.3.6",
+    "tqdm>=4.67.1",
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+ext-modules = [
+#    {name = "streaming_form_data._parser", sources = ["src/streaming_form_data/_parser.c"]}
+]
+
+[tool.pytest.ini_options]
+pythonpath = [
+    "src"
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.4.2",
+    "pytest-cov>=7.0.0",
+    "pytest-sugar>=1.1.1",
+    "pytest-xdist>=3.8.0",
+]

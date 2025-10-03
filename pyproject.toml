@@ -1,17 +1,22 @@
-[build-system]
-build-backend = "setuptools.build_meta"
-requires = ["setuptools>=64.0.0", "setuptools_scm>=6.2.0"]
-
 [project]
 name = "parmed"
 version = "10.0.0"
 description = "Inter-package toolkit for molecular mechanical simulations"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.11,<3.14"
 authors = [
-    { name = 'Jason Swails' }
+    { name = 'Jason Swails', email = 'jason.swails@gmail.com' }
 ]
+license = 'LGPL'
+urls = [
+    'https://parmed.github.io/ParmEd/html/index.html'
+]
+
+#
+# Dependencies
+#
 dependencies = [
+    "cibuildwheel>=3.2.0",
     "lxml>=6.0.2",
     "netcdf4>=1.7.2",
     "networkx>=3.5",
@@ -22,16 +27,10 @@ dependencies = [
     "tqdm>=4.67.1",
 ]
 
-[tool.setuptools]
-package-dir = {"" = "src"}
-
-[tool.pytest.ini_options]
-pythonpath = [
-    "src", "tests"
-]
-
 [dependency-groups]
 dev = [
+    "build>=1.3.0",
+    "hatch>=1.14.2",
     "pytest>=8.4.2",
     "pytest-cov>=7.0.0",
     "pytest-sugar>=1.1.1",
@@ -42,3 +41,25 @@ dev = [
 name = "xyme-pypi"
 url = "https://pypi.prd.xyme.cloud/"
 publish-url = "https://pypi.prd.xyme.cloud/"
+
+#
+# Build settings
+#
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.cibuildwheel.linux]
+archs = ["aarch64", "x86_64"]
+skip = "*musl*"  # Skip building for musl libc
+
+#
+# Code utilities
+#
+[tool.pytest.ini_options]
+pythonpath = [
+    "src", "tests"
+]

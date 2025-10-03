@@ -4,12 +4,10 @@ clear-dist:
 
 package *flags: clear-dist
     uv build {{flags}}
+    cibuildwheel --platform linux --output-dir dist
 
 publish: package
     uv publish --index xyme-pypi --username "test"
-
-publish-dev: package
-    uv publish --index xyme-pypi-dev --username "test"
 
 # Run the unit tests suite
 test:

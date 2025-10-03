@@ -3,14 +3,20 @@ import shutil
 import sys
 import struct
 import warnings
+from pathlib import Path
 
 if sys.version_info < (3, 6):
     sys.exit('You must have at least Python 3.6 for ParmEd to work correctly.')
 
 from setuptools import setup, Extension
-kws = {"entry_points" : {"console_scripts" : ["parmed = parmed.scripts:clapp"]}}
 
 from distutils.command.clean import clean as Clean
+
+REPO_DIR = Path(__file__).parent.resolve()
+SRC_DIR = REPO_DIR / 'src'
+LIB_DIR = SRC_DIR / 'lib'
+LIB_DIR_RELATIVE = LIB_DIR.relative_to(REPO_DIR)
+
 
 def prepare_env_for_osx():
     """ Prepares the environment for OS X building """
@@ -25,6 +31,7 @@ def prepare_env_for_osx():
         '18': '10.14',
         '19': '10.15',
         '20': '11.5',
+        '24': '15.7',
     }
     os.environ['CXX'] = 'clang++'
     os.environ['CC'] = 'clang'
@@ -36,6 +43,7 @@ def prepare_env_for_osx():
         warnings.warn("darwin_major_to_osx_map needs to be updated! Report this issue if build fails.")
         swvers = subprocess.run("sw_vers -productVersion".split(), capture_output=True)
         os.environ["MACOSX_DEPLOYMENT_TARGET"] = ".".join(swvers.stdout.decode("utf-8").strip().split(".")[:2])
+
 
 class CleanCommand(Clean):
     """python setup.py clean """
@@ -84,47 +92,41 @@ packages = ['parmed', 'parmed.amber', 'parmed.modeller',
             'parmed.tools.simulations', 'parmed.entos', 'parmed.dlpoly']
 
 # Optimized readparm
-sources = [os.path.join('src/extensions', '_rdparm.cpp'),
-           os.path.join('src/extensions', 'readparm.cpp')]
-depends = [os.path.join('src/extensions', 'CompatabilityMacros.h'),
-           os.path.join('src/extensions', 'readparm.h')]
-include_dirs = [os.path.join(os.path.abspath('.'), 'src')]
+sources = [LIB_DIR_RELATIVE / '_rdparm.cpp', LIB_DIR_RELATIVE / 'readparm.cpp']
+depends = [LIB_DIR_RELATIVE / 'CompatabilityMacros.h', LIB_DIR_RELATIVE / 'readparm.h']
+include_dirs = [SRC_DIR]
 
 definitions = []
 
-#if using 64 bit python interpreter on Windows, add the MS_WIN64 flag for 64 bit pointers
+# if using 64 bit python interpreter on Windows, add the MS_WIN64 flag for 64 bit pointers
 if sys.platform == 'win32' and (struct.calcsize("P") == 8):
     definitions.append(('MS_WIN64', None))
-    definitions.append(('_hypot', 'hypot')) #fix MinGW build -- see http://stackoverflow.com/questions/10660524/error-building-boost-1-49-0-with-gcc-4-7-0/12124708#12124708
+    definitions.append(('_hypot',
+                        'hypot'))  # fix MinGW build -- see http://stackoverflow.com/questions/10660524/error-building-boost-1-49-0-with-gcc-4-7-0/12124708#12124708
 
 extensions = [Extension('parmed.amber._rdparm',
                         sources=sources,
                         include_dirs=include_dirs,
                         depends=depends,
                         define_macros=definitions)
-]
+              ]
 
 if __name__ == '__main__':
 
     # See if we have the Python development headers.  If not, don't build the
     # optimized prmtop parser extension
     from distutils import sysconfig
+
     if not is_pypy and not os.path.exists(os.path.join(sysconfig.get_config_vars()['INCLUDEPY'], 'Python.h')):
         extensions = []
 
     cmdclass = dict(clean=CleanCommand)
     cmdclass.update()
-    setup(name='ParmEd',
-          version='0.0.0',
-          description='Inter-package toolkit for molecular mechanical simulations',
-          author='Jason Swails',
-          author_email='jason.swails@gmail.com',
-          url='https://parmed.github.io/ParmEd/html/index.html',
-          license='LGPL',
-          packages=packages,
-          ext_modules=extensions,
-          cmdclass=cmdclass,
-          package_data={'parmed.modeller': ['data/*.lib', 'data/*.json', 'data/*.json.gz']},
-          python_requires='>=3.8',
-          **kws
+    setup(
+        packages=packages,
+        ext_modules=extensions,
+        cmdclass=cmdclass,
+        package_data={'parmed.modeller': ['data/*.lib', 'data/*.json', 'data/*.json.gz']},
+        python_requires='>=3.8',
+        entry_points={"console_scripts": ["parmed = parmed.scripts:clapp"]}
     )
